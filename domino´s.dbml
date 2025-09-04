@@ -23,7 +23,7 @@ Table Producto {
 }
 
 Table DetallePedido {
-  id_pedido int [not null, ref: > Pedido.id_pedido]
+  id_pedido int [not null]
   id_producto int [not null, ref: > Producto.id_producto]
   cantidad int [not null]
   subtotal numeric(10,2) [not null]
@@ -33,25 +33,17 @@ Table DetallePedido {
   }
 }
 
-Table Empleado {
-  id_empleado serial [pk, not null]
-  nombre varchar(100) [not null]
-  rol varchar(50) [not null] 
-  telefono numeric(15,0) [not null]
-}
+
 
 Table Reparto {
   id_pedido int [not null, ref: > Pedido.id_pedido]
-  id_empleado int [not null, ref: > Empleado.id_empleado]
   hora_salida timestamp
   hora_entrega timestamp
 
-  indexes {
-    (id_pedido, id_empleado) [pk]
-  }
 }
 
 Table Inventario {
+  id_pedido serial [pk, not null, ref: >Pedido.id_pedido]
   id_ingrediente serial [pk, not null]
   nombre varchar(100) [not null]
   cantidad_disponible numeric(10,2) [not null]
